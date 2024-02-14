@@ -16,7 +16,7 @@
 
   RED.nodes.registerType('tuya device', {
     category: 'tuya',
-    color: '#c7e9c0',
+    color: '#ffffff',
     defaults: {
       account: { value: '', type: 'tuya config' },
       deviceid: { value: '', required: true },
@@ -25,7 +25,7 @@
     },
     inputs: 1,
     outputs: 2,
-    icon() { return 'tuya.png'; },
+    icon() { return 'tuya.svg'; },
     label() { return this.devicename; },
     oneditsave() {
       this.deviceid = $('#node-input-device').typedInput('value');
