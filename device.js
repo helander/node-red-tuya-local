@@ -13,6 +13,7 @@ module.exports = (RED) => {
     node.devicekey = config.devicekey;
     node.devicename = config.devicename;
     this.queue = [];
+    this.dpsKeys = [];
     node.status({ fill: 'grey', shape: 'ring' });
     this.device = new TuyAPI({ id: node.deviceid, key: node.devicekey });
 
@@ -47,21 +48,30 @@ module.exports = (RED) => {
     });
 
     this.device.on('data', data => {
-      const firstIndex = Object.keys(data.dps)[0];
-      node.status({ fill: 'green', shape: 'ring', text: `dpIdx=${firstIndex}` });
-      node.send([{payload: data.dps}, null])
+      this.dpsKeys = Object.keys(data.dps);
+      node.status({ fill: 'green', shape: 'ring', text: `dps ${this.dpsKeys}` });
+      node.send([{payload: data.dps}, {payload: data.dps[this.dpsKeys[0]]}]);
       //console.log(new Date(),this.devicename,'data',data);
     });
 
     async function inputHandler(self) {
       //console.log(new Date(),'inputHandler entry',self.devicename);
       try {
-        const data = self.queue[0];
+        let data = self.queue[0];
         //console.log(new Date(), 'set',self.devicename,data);
+        if (self.dpsKeys.length === 0) {
+          console.log(new Date(),self.devicename,'Force fetching dsp keys')
+          self.dpsKeys = Object.keys( (await self.device.get( {schema: true} ) ).dps );
+        }
+        if (typeof data === 'boolean') {
+          const bool = data;
+          data = {};
+          data[self.dpsKeys[0]] = bool;
+        }
         await self.device.set({multiple: true, data: data});
         const getData = await self.device.get({schema: true});
-        const firstIndex = Object.keys(getData.dps)[0];
-        node.status({ fill: 'green', shape: 'dot', text: `dpIdx=${firstIndex}` });
+        self.dpsKeys = Object.keys(getData.dps);
+        node.status({ fill: 'green', shape: 'dot', text: `dps ${self.dpsKeys}` });
         //console.log(new Date(), 'after set',self.devicename,data);
         self.queue.shift();
         if (self.queue.length > 0) inputHandler(self);

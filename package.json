@@ -1,6 +1,6 @@
  {
     "name": "@helander/node-red-tuya-local",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "description": "Provides access to Tuya devices (local communication).",
     "repository": {
         "type": "git",
@@ -19,7 +19,7 @@
         "linthtmlfix": "eslint --ext .html . --max-warnings=0 --fix"
     },
     "node-red": {
-        "version": ">=3.1.3",
+        "version": ">=3",
         "nodes": {
             "tuya config": "config.js",
             "tuya device": "device.js"
@@ -46,6 +46,6 @@
         "tuyapi": "github:codetheweb/tuyapi"
     },
     "engines": {
-        "node": ">=18.16.0"
+        "node": ">=16.20"
     }
 }
