@@ -1,0 +1,51 @@
+ {
+    "name": "@helander/node-red-tuya-local",
+    "version": "1.1.0",
+    "description": "Provides access to Tuya devices (local communication).",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/helander/node-red-tuya-local.git",
+        "directory": "tree/"
+    },
+    "license": "Apache-2.0",
+    "keywords": [
+        "node-red",
+        "tuya"
+    ],
+    "scripts": {
+        "lint": "eslint *.js  --max-warnings=0",
+        "linthtml": "eslint --ext .html . --max-warnings=0",
+        "lintfix": "eslint *.js --max-warnings=0 --fix",
+        "linthtmlfix": "eslint --ext .html . --max-warnings=0 --fix"
+    },
+    "node-red": {
+        "version": ">=3.1.3",
+        "nodes": {
+            "tuya config": "config.js",
+            "tuya device": "device.js"
+        }
+    },
+    "author": {
+        "name": "Lars-Erik Helander",
+        "email": "lehswe@gmail.com",
+        "url": "https://helander.network"
+    },
+    "contributors": [
+        {
+            "name": "@helander"
+        }
+    ],
+    "devDependencies": {
+        "eslint": "^8.56.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-html": "^7.1.0",
+        "eslint-plugin-import": "^2.29.1"
+    },
+    "dependencies": {
+        "@tuya/tuya-connector-nodejs": "^2.1.2",
+        "tuyapi": "github:codetheweb/tuyapi"
+    },
+    "engines": {
+        "node": ">=18.16.0"
+    }
+}

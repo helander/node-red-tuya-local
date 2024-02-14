@@ -1,0 +1,39 @@
+<script type="text/html" data-template-name="tuya config">
+    <div class="form-row">
+	    <label for="node-config-input-baseurl"><i class="fa fa-cog"></i> Base Url</label>
+	    <input type="text" id="node-config-input-baseurl" >
+    </div>
+    <div class="form-row">
+	    <label for="node-config-input-accesskey"><i class="fa fa-cog"></i> Access Key</label>
+	    <input type="text" id="node-config-input-accesskey" >
+    </div>
+    <div class="form-row">
+	    <label for="node-config-input-secretkey"><i class="fa fa-cog"></i> Secret Key</label>
+	    <input type="text" id="node-config-input-secretkey" >
+    </div>
+    <div class="form-row">
+	    <label for="node-config-input-deviceid"><i class="fa fa-cog"></i> Device Id</label>
+	    <input type="text" id="node-config-input-deviceid" >
+    </div>
+</script>
+
+<script type="text/javascript">
+  /* global RED */
+  /* eslint no-undef: "error" */
+
+  RED.nodes.registerType('tuya config', {
+    category: 'config',
+    defaults: {
+      baseurl: { value: 'https://openapi.tuyaeu.com', required: true },
+      accesskey: { value: 'xs9ttk75b2j622vc8ndh', required: true },
+      secretkey: { value: 'ce44f162f8ae4d8b884caa5bcb83b619', required: true },
+      deviceid: { value: '32452410d8bfc0d72e52', required: true },
+    },
+    label() { return this.accesskey; },
+  });
+</script>
+
+
+<script type="text/html" data-help-name="tuya config">
+  <p>Configuration for access to Tuya account.</p>
+</script>
