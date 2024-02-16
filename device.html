@@ -61,4 +61,82 @@
 
 <script type="text/html" data-help-name="tuya device">
 <p>A Tuya device.</p>
+<!--
+
+<h3>Inputs</h3>
+     <ol class="node-ports">
+         <li>Boolean message
+             <dl class="message-properties">
+                 <dt>payload <span class="property-type">boolean|number|object</span></dt>
+                 <dd>boolean input representation.</dd>
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>the logical input name.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Outputs</h3>
+<p>Each gate node as two output ports. Output messages are sent on both ports. One port is for the gate result and the other port is for the inverted result.</p>
+     <ol class="node-ports">
+         <li>Boolean message
+             <dl class="message-properties">
+                 <dt>payload <span class="property-type">boolean</span></dt>
+                 <dd>the result of the gate's boolean operation.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+
+<h4>Function</h4>
+
+<p> Each gate is a single node. Each node is configured to be one of:
+<ul>
+<li>AND gate</li>
+<li>OR gate</li>
+<li>EQU gate</li>
+<ul>
+</p>
+
+<p>Since node-red does not allow multiple inputs to a node,
+each gate input is multiplexed using message topic values.
+Messages for a particular gate input are tagged with a specfic
+message topic <code>msg.topic</code>.</p>
+
+<p>The topic tagging of messages to all gate nodes is automated (via the Node-RED Messaging Hooks API).</p>
+
+
+
+<h4>Boolean messages</h4>
+
+<p>The following payloads are accepted as boolean input
+<ul>
+<li>boolean value<ul><li>true => true</li><li>false => false</li></ul></li>
+<li>number value<ul><li> above 0.5 => true</li><li>below 0.5 => false</li></ul></li>
+<li>object with property named On, where the property value is either boolean or number. Same boolean representation as boolean and number respectively.</li>
+</ul></p>
+
+
+<h4>Node status</h4>
+<p>Errors are indicated using red colour. The following errors may show up:
+<ul>
+<li>Payload  - unknown boolean payload value. Shows payload content.</li>
+</ul>
+</p>
+
+<p>Other (colour, shape) combinations are:
+<ul>
+<li>(grey, * )      Not ready (one or more inputs are missing input values</li>
+<li>(blue, * )      Wires from more than one node/port (EQU gate)</li>
+<li>( *  , ring)    Node output: false</li>
+<li>( *  , dot)     Node output: true</li>
+<li>(yellow, ring)  Node output: none (no message sent)</li>
+</ul>
+</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/helander/node-red-boolean-gates.git">GitHub</a> - the nodes github repository</li>
+    </ul>
+-->
 </script>

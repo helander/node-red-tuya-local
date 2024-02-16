@@ -17,11 +17,13 @@ module.exports = (RED) => {
     node.status({ fill: 'grey', shape: 'ring' });
     this.device = new TuyAPI({ id: node.deviceid, key: node.devicekey });
 
-    this.device.find({timeout: 30}).then(() => {
+    this.device.find({timeout: 60}).then(() => {
       node.status({ fill: 'grey', shape: 'dot' });
       node.send([null, {payload: 'found'} ])
       this.device.connect();
       console.log(new Date(),this.devicename,'found');
+    }).catch((foo) => {
+      console.log(new Date(),this.devicename,'find timeout',foo);
     });
 
     this.device.on('connected', () => {
@@ -34,6 +36,11 @@ module.exports = (RED) => {
       node.status({ fill: 'yellow', shape: 'ring' });
       node.send([null, {payload: 'disconnected'} ])
       console.log(new Date(),this.devicename,'disconnected');
+      this.device.connect().then((bool) => {
+        console.log(new Date(),this.devicename,'disconnect-connect result',bool);
+      }).catch((foo) => {
+        console.log(new Date(),this.devicename,'disconnect-connect error',foo);
+      });
     });
 
     //this.device.on('dp-refresh', data => {
@@ -88,10 +95,14 @@ module.exports = (RED) => {
      *
      */
     this.on('input', (msg) => {
+      try {
       //console.log(new Date(),'onInput entry',this.devicename);
       this.queue.push(msg.payload);
       if (this.queue.length === 1) inputHandler(this);
       //console.log(new Date(),'onInput exit',this.devicename);
+      } catch(err) {
+      console.log(new Date(),this.devicename,'input error',err);
+      }
       return undefined;
     });
 

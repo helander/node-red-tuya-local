@@ -20,8 +20,15 @@ module.exports = (RED) => {
     });
     (async () => {
       const devinfo = await api.request({ method: 'GET', path: `/v1.0/devices/${node.deviceid}` });
+      if (devinfo.result === undefined) {
+        console.log(new Date(),'tuya config','no devinfo result',JSON.stringify(devinfo));
+        return;
+      }
       const userid = devinfo.result.uid;
-
+      if (userid === undefined) {
+        console.log(new Date(),'tuya config','no userid',JSON.stringify(devinfo.result));
+        return;
+      }
       // Fetch application devices from Tuya cloud
       const result = await api.request({ method: 'GET', path: `/v1.0/users/${userid}/devices` });
 
@@ -36,6 +43,7 @@ module.exports = (RED) => {
       }
 
       node.devices = devices;
+      console.log('Devices',JSON.stringify(devices,null,'\t'));
     })();
 
     RED.httpAdmin.get('/tuyadevices/:id', (req, res) => {
